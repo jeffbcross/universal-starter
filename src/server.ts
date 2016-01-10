@@ -20,6 +20,15 @@ app.set('view engine', 'ng2.html');
 app.use(express.static(root));
 
 // Routes
+app.use('/about', (req, res) => {
+  console.log('about!')
+  res.render('index', { App , providers: [
+    ROUTER_PROVIDERS,
+    SERVER_LOCATION_PROVIDERS,
+    provide(BASE_URL, {useValue: `http://localhost:3000/about`})
+  ]});
+});
+
 app.use('/', (req, res) => {
   res.render('index', { App , providers: [
     ROUTER_PROVIDERS,
@@ -27,6 +36,7 @@ app.use('/', (req, res) => {
     provide(BASE_URL, {useValue: `http://localhost:3000${req.baseUrl}`})
   ]});
 });
+
 
 // Server
 app.listen(3000, () => {
